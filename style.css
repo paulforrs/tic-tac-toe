@@ -1,0 +1,73 @@
+*, ::after::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.game-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(3, auto);
+  gap: 5px;
+  height: -moz-fit-content;
+  height: fit-content;
+  justify-content: center;
+  align-content: center;
+  background-color: black;
+}
+
+.cell {
+  background-color: rgb(255, 255, 255);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.cell.x::after,
+.cell.x::before {
+  content: "";
+  background-color: black;
+  height: 85px;
+  width: 12.75px;
+  position: absolute;
+}
+
+.cell.x::after {
+  transform: rotate(45deg);
+}
+
+.cell.x::before {
+  transform: rotate(-45deg);
+}
+
+.cell.o::after {
+  content: "";
+  height: 85px;
+  width: 85px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.cell.o::before {
+  content: "";
+  height: 59.5px;
+  width: 59.5px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+}/*# sourceMappingURL=style.css.map */
