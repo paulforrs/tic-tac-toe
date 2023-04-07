@@ -1,3 +1,8 @@
+$cell-size: 100px;
+$gap-size:5px;
+$marker-size: calc($cell-size * .85);
+$marker-thickness : $marker-size * .15;
+$hover-color: rgb(120, 120, 120);
 *, ::after::before{
     margin: 0;
     padding: 0;
@@ -6,10 +11,7 @@
 body{
     margin: 0;
 }
-$cell-size: 100px;
-$gap-size:5px;
-$marker-size: calc($cell-size * .85);
-$marker-thickness : $marker-size * .15;
+
 
 .game-container{
     width: 100%;
@@ -18,6 +20,7 @@ $marker-thickness : $marker-size * .15;
     justify-content: center;
     align-items: center;
 }
+// Board Cells
 .board{
     display: grid;
     grid-template-columns: repeat(3,auto);
@@ -27,6 +30,35 @@ $marker-thickness : $marker-size * .15;
     justify-content: center;
     align-content: center;
     background-color: black;
+}
+.board.x .cell:not(.x):not(.o):hover::after,
+.board.x .cell:not(.x):not(.o):hover::before{
+    content: '';
+    background-color:$hover-color;
+    height: $marker-size;
+    width: $marker-thickness;
+    position: absolute;
+}
+.board.x .cell:not(.x):not(.o):hover::after{
+    transform: rotate(45deg);
+}
+.board.x .cell:not(.x):not(.o):hover::before{
+    transform: rotate(-45deg);
+}
+.board.o .cell:not(.x):not(.o):hover::after{
+    content: '';
+    height: $marker-size;
+    width: $marker-size;
+    background-color: $hover-color;
+    border-radius: 50%;
+}
+.board.o .cell:not(.x):not(.o):hover::before{
+    content: '';
+    height: $marker-size - ($marker-thickness*2);
+    width: $marker-size - ($marker-thickness*2);
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
 }
 .cell{
     background-color: rgb(255, 255, 255);
@@ -67,4 +99,50 @@ $marker-thickness : $marker-size * .15;
     background-color: white;
     border-radius: 50%;
     position: absolute;
+}
+.cell.x, .cell.o{
+    cursor: not-allowed;
+}
+// Winner Message
+.winner-message-container{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(59, 58, 58, 0.933);
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+#winner-message-wrapper{
+    display: grid;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 50px;
+    grid-template-columns: repeat(2,100px);
+    grid-template-rows: repeat(2, 50px);
+    color: white
+}
+#winner{
+   grid-area: 1/1/1/span 2;
+   font-size: 3rem;
+   margin: auto;
+   font-family: 'Roboto', sans-serif;
+}
+.end-game-button{
+    height: 50px;
+    cursor: pointer;
+}
+.show{
+    display: flex;
+}
+.hidden{
+    display: none;
 }

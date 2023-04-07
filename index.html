@@ -3,8 +3,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- JS -->
     <script src="index.js" defer></script>
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
     <title>Tic-Tac-Toe</title>
 </head>
 <body>
@@ -21,9 +28,18 @@
             <div class="cell" data-cell></div>
         </div>
     </div>
+    <div class="winner-message-container show" id="winner-message-container">
+        <div class="winner-message" id="winner-message-wrapper">
+            <!-- game Over overlay -->
+            <p id="winner">X winss</p>
+            <button class="end-game-button" id="home-button">Home</button>
+            <button class="end-game-button" id="reset-button">Reset</button>
+        </div>
+    </div>
 
-    <div>
-        <!-- game Over overlay -->
+    <div id="home-menu">
+        <button class="home-button" id="single-player-button">Single Player</button>
+        <button class="home-button" id="multi-player-button">Multiplayer</button>
     </div>
 </body>
 </html>
