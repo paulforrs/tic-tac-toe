@@ -9,13 +9,63 @@ const WINNINGCOMBO = [
     [0,3,6],[1,4,7],[2,5,8],
     [0,4,8],[6,4,2]
 ]
-// Winner Message
+// Pages
+const homeMenu = document.querySelector('.home-menu')
+const gameContainer = document.querySelector('.game-container')
 const winnerMessage = document.querySelector('#winner-message-container')
-const resetButton = document.querySelector('#reset-button')
-resetButton.addEventListener('click', ()=>{
-    winnerMessage.classList.toggle('show')
-    resetGame()
+function showHome(){
+    homeMenu.classList.remove('hidden')
+}
+function hideHome(){
+    homeMenu.classList.add('hidden')
+}
+function showGame(){
+    gameContainer.classList.remove('hidden')
+}
+function hideGame(){
+    gameContainer.classList.add('hidden')
+}
+function hideMessage(){
+    winnerMessage.classList.add('hidden')
+}
+function showMessage(){
+    winnerMessage.classList.remove('hidden')
+}
+// Home menu
+const homeButton = Array.from(document.querySelectorAll('.home-button'))
+homeButton.forEach(button =>{
+    button.addEventListener('click', (e)=>{
+        if(e.target.id =='single-player-button'){
+            showGame()
+            hideHome()
+            startUp()
+        }
+        else{
+            showGame()
+            hideHome()
+            startUp()
+        }
+    })
 })
+
+// Winner Message
+const endGameButtons = Array.from(document.querySelectorAll('.end-game-button'))
+console.log(endGameButtons)
+endGameButtons.forEach(button=>{
+    button.addEventListener('click', (e)=>{
+        if(e.target.id == 'end-home'){
+            hideMessage()
+            hideGame()
+            showHome()
+            resetGame()
+        }
+        else{
+            hideMessage()
+            resetGame()
+        }
+    })
+})
+
 function resetGame(){
     cells.forEach(cell=>{
         cell.classList.remove('x')
@@ -34,7 +84,6 @@ function addClickEvent(){
     
     });
 }
-
 function handleClick(e){
     const cell = e.target
     const currentClass = xTurn == true ? X_CLASS : O_CLASS;
@@ -53,7 +102,6 @@ function handleClick(e){
     }
 }
 function addMarker(cell){
-    console.log('added')
     cell.classList.add( xTurn == true ? X_CLASS : O_CLASS)
 }
 function changeTurn(){
@@ -72,9 +120,9 @@ function checkDraw(cells){
     })
 }
 function endGame(result){
-    winnerMessage.classList.toggle('show')
     const winnerText = document.querySelector('#winner')
     winnerText.textContent = result
+    showMessage()
 }
 function addBoardClass(){
     board.classList.remove(X_CLASS)
@@ -85,4 +133,3 @@ function startUp(){
     addBoardClass()
     addClickEvent()
 }
-startUp()
