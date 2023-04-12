@@ -17,25 +17,32 @@
 <body>
     <div class="game-container hidden">
         <div class="board">
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
+            <div class="cell" data-cell = '1'></div>
+            <div class="cell" data-cell = '2'></div>
+            <div class="cell" data-cell = '3'></div>
+            <div class="cell" data-cell = '4'></div>
+            <div class="cell" data-cell = '5'></div>
+            <div class="cell" data-cell = '6'></div>
+            <div class="cell" data-cell = '7'></div>
+            <div class="cell" data-cell = '8'></div>
+            <div class="cell" data-cell = '9'></div>     
+        </div>
+        <div class="replay-button-wrapper"id="">
+            <button class="replay-button" id="replay-back">Back</button>
+            <button class="replay-button" id="replay-next">Next</button>
+            <button class="replay-button" id="replay-exit">Exit</button>
         </div>
     </div>
+    <!-- Message Overlay -->
     <div class="winner-message-container hidden" id="winner-message-container">
         <div class="winner-message" id="winner-message-wrapper">
-            <!-- game Over overlay -->
             <p id="winner">X winss</p>
             <button class="end-game-button" id="end-home">Home</button>
             <button class="end-game-button" id="end-reset">Reset</button>
+            <button class="end-game-button" id="end-replay">Replay</button>
         </div>
     </div>
+    <!-- Home Menu -->
     <div class="home-menu">
         <button class="home-button" id="single-player-button">Single Player</button>
         <button class="home-button" id="multi-player-button">Multiplayer</button>
