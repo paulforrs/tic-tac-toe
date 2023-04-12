@@ -45,11 +45,13 @@ const homeButton = Array.from(document.querySelectorAll('.home-button'))
 homeButton.forEach(button =>{
     button.addEventListener('click', (e)=>{
         if(e.target.id =='single-player-button'){
+            resetBoard()
             showGame()
             hideHome()
             startUp()
         }
         else{
+            resetBoard()
             showGame()
             hideHome()
             startUp()
@@ -57,35 +59,56 @@ homeButton.forEach(button =>{
     })
 })
 // Replay
-let turnCounter = 0;
-function replayBack(){
-
-}
-function replayNext(){
-
-}
-function handleReplay(e){
-    id = e.target.id
-    const moveIndex = history.moves[turnCounter]
-    if(id === 'replay-back'){
-        console.log(history.moves[turnCounter])
-        // back
-    }
-    else if( id ==='replay-next'){
-
-        for( var cellIndex in moveIndex){
-            const cell = document.querySelector(`[data-cell= "${cellIndex}"]`)
-            console.log(cell,moveIndex[cellIndex])
-            cell.classList.add( moveIndex[cellIndex])
-        }
-        turnCounter++
+const nextBtn = document.querySelector('#replay-next')
+const previousBtn = document.querySelector('#replay-previous')
+function replayBtnStatus(){
+    if(turnCounter == history.moves.length){
+        nextBtn.setAttribute('disabled',null)
     }
     else{
-        // exit
+        nextBtn.removeAttribute('disabled')
+    }
+    if(turnCounter == 0){
+        previousBtn.setAttribute('disabled', null)
+    }
+    else{
+        previousBtn.removeAttribute('disabled')
     }
 }
+var turnCounter = 0;
+function handleReplay(e){
+    console.log(history.moves.length)
+    id = e.target.id
+    if(id === 'replay-previous' && turnCounter != 0){
+        turnCounter --
+
+        console.log(turnCounter)
+        const currentMoveIndex = history.moves[turnCounter]
+        for( var cellIndex in currentMoveIndex){
+            const cell = document.querySelector(`[data-cell= "${cellIndex}"]`)
+            cell.classList.remove( currentMoveIndex[cellIndex])
+        }
+    }
+    else if(id ==='replay-next'&& turnCounter < history.moves.length){
+        console.log(turnCounter)
+        const currentMoveIndex = history.moves[turnCounter]
+        for( var cellIndex in currentMoveIndex){
+            const cell = document.querySelector(`[data-cell= "${cellIndex}"]`)
+            cell.classList.add( currentMoveIndex[cellIndex])
+        }
+        turnCounter++
+
+    }
+    else if(id=== 'replay-exit'){
+        history.moves = []
+        turnCounter = 0
+        hideGame()
+        showHome()
+    }
+    replayBtnStatus()
+}
 function replay(){
-    console.log('replay function');
+    replayBtnStatus()
     const replayButtons = Array.from(document.querySelectorAll('.replay-button'))
     replayButtons.forEach( (button) =>{
         console.log(button)
