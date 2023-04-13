@@ -16,7 +16,10 @@ const history = {
         // this.moveCounter = this.moveCounter +1;
         this.moves.push({[index]: currentClass})
         console.log(history.moves);
-    }
+    },
+    reset : function (){
+        this.moves =[]
+    } 
 }
 // Pages
 const homeMenu = document.querySelector('.home-menu')
@@ -100,7 +103,7 @@ function handleReplay(e){
 
     }
     else if(id=== 'replay-exit'){
-        history.moves = []
+        history.reset()
         turnCounter = 0
         hideGame()
         showHome()
@@ -130,14 +133,12 @@ endGameButtons.forEach(button=>{
             resetBoard()
         }
         else if(e.target.id === 'end-replay'){
-            console.log('replay')
             resetBoard()
             hideMessage()
             replay()
         }
         else{
             hideMessage()
-            resetBoard()
             startUp()
         }
     })
@@ -210,6 +211,8 @@ function addBoardClass(){
     board.classList.add(xTurn ==true ? X_CLASS : O_CLASS)
 }
 function startUp(){
+    history.reset()
+    resetBoard()
     addBoardClass()
     addClickEvent()
 }
