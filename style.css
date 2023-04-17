@@ -8,15 +8,24 @@ body {
   margin: 0;
 }
 
+button {
+  margin: 20px;
+  border-radius: 5px;
+  min-height: 50px;
+  min-width: 150px;
+  cursor: pointer;
+}
+
 .game-container {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.board {
+.board, .home-board {
   display: grid;
   grid-template-columns: repeat(3, auto);
   grid-template-rows: repeat(3, auto);
@@ -62,7 +71,7 @@ body {
   position: absolute;
 }
 
-.cell {
+.cell, .home-cell {
   background-color: rgb(255, 255, 255);
   width: 100px;
   height: 100px;
@@ -70,6 +79,12 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+.home-cell {
+  font-family: "Carter One", cursive;
+  font-weight: 800;
+  font-size: 80px;
 }
 
 .cell.x::after,
@@ -133,13 +148,13 @@ body {
   align-items: center;
   align-content: center;
   gap: 50px;
-  grid-template-columns: repeat(2, 100px);
+  grid-template-columns: repeat(3, auto);
   grid-template-rows: repeat(2, 50px);
   color: white;
 }
 
 #winner {
-  grid-area: 1/1/1/span 2;
+  grid-area: 1/1/1/span 3;
   font-size: 3rem;
   margin: auto;
   font-family: "Roboto", sans-serif;
@@ -153,6 +168,7 @@ body {
 .home-menu {
   display: flex;
   position: absolute;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
   justify-content: center;

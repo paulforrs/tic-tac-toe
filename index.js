@@ -1,6 +1,7 @@
 // Board cells
 const cells = Array.from(document.querySelectorAll('[data-cell]'))
 const board = document.querySelector('.board')
+
 let xTurn = true
 const O_CLASS = 'o'
 const X_CLASS = 'x'
@@ -15,7 +16,6 @@ const history = {
     recordMove : function(index, currentClass){
         // this.moveCounter = this.moveCounter +1;
         this.moves.push({[index]: currentClass})
-        console.log(history.moves);
     },
     reset : function (){
         this.moves =[]
@@ -45,6 +45,37 @@ function showMessage(){
 }
 // Home menu
 const homeButton = Array.from(document.querySelectorAll('.home-button'))
+const homeBoard = Array.from(document.querySelectorAll('.home-cell'))
+const TICTACTOE = 'TICTACTOE'
+const home ={
+    Tic : function(){
+            for(let i =0; i<3;i++){
+                homeBoard[i].textContent = homeBoard[i].textContent === ''?
+                TICTACTOE[i] : ''
+            }
+    },
+    Tac: function(){
+            for(let i =3; i<6;i++){
+                homeBoard[i].textContent = homeBoard[i].textContent === ''?
+                TICTACTOE[i] : ''
+            }
+    },
+    Toe : function(){
+            for(let i =6; i<9;i++){
+                homeBoard[i].textContent = homeBoard[i].textContent === ''?
+                TICTACTOE[i] : ''
+            }
+        }
+}
+setInterval(()=>{
+    home.Tic()
+    setInterval(()=>{
+        home.Tac()
+        setInterval(()=>{
+            home.Toe()
+        }, 2000)
+    }, 2000)
+}, 2000)
 homeButton.forEach(button =>{
     button.addEventListener('click', (e)=>{
         if(e.target.id =='single-player-button'){
@@ -64,6 +95,13 @@ homeButton.forEach(button =>{
 // Replay
 const nextBtn = document.querySelector('#replay-next')
 const previousBtn = document.querySelector('#replay-previous')
+const replayBtnWrapper = document.querySelector('.replay-button-wrapper')
+function showReplayBtn(){
+    replayBtnWrapper.classList.remove('hidden')
+}
+function hideReplayBtnWrapper(){
+    replayBtnWrapper.classList.add('hidden')
+}
 function replayBtnStatus(){
     if(turnCounter == history.moves.length){
         nextBtn.setAttribute('disabled',null)
@@ -84,8 +122,6 @@ function handleReplay(e){
     id = e.target.id
     if(id === 'replay-previous' && turnCounter != 0){
         turnCounter --
-
-        console.log(turnCounter)
         const currentMoveIndex = history.moves[turnCounter]
         for( var cellIndex in currentMoveIndex){
             const cell = document.querySelector(`[data-cell= "${cellIndex}"]`)
@@ -93,7 +129,6 @@ function handleReplay(e){
         }
     }
     else if(id ==='replay-next'&& turnCounter < history.moves.length){
-        console.log(turnCounter)
         const currentMoveIndex = history.moves[turnCounter]
         for( var cellIndex in currentMoveIndex){
             const cell = document.querySelector(`[data-cell= "${cellIndex}"]`)
@@ -103,6 +138,7 @@ function handleReplay(e){
 
     }
     else if(id=== 'replay-exit'){
+        hideReplayBtnWrapper()
         history.reset()
         turnCounter = 0
         hideGame()
@@ -111,6 +147,7 @@ function handleReplay(e){
     replayBtnStatus()
 }
 function replay(){
+    showReplayBtn()
     replayBtnStatus()
     const replayButtons = Array.from(document.querySelectorAll('.replay-button'))
     replayButtons.forEach( (button) =>{
@@ -123,7 +160,6 @@ function replay(){
 
 // Winner Message
 const endGameButtons = Array.from(document.querySelectorAll('.end-game-button'))
-console.log(endGameButtons)
 endGameButtons.forEach(button=>{
     button.addEventListener('click', (e)=>{
         if(e.target.id === 'end-home'){
@@ -210,6 +246,7 @@ function addBoardClass(){
     board.classList.remove(O_CLASS)
     board.classList.add(xTurn ==true ? X_CLASS : O_CLASS)
 }
+
 function startUp(){
     history.reset()
     resetBoard()
